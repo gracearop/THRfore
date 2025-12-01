@@ -81,7 +81,7 @@ function AppNavbar() {
       <div className="flex items-center">
         <Link to="/" className="flex items-center">
           <img
-            src="/assets/thrift.JPG"
+            src={process.env.PUBLIC_URL + "/assets/thrift.JPG"
             className="mr-3 h-6 sm:h-9"
             alt="App Logo"
           />

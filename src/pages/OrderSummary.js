@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 export default function OrderSummary() {
   const { orders } = useContext(CartContext);
@@ -47,13 +47,26 @@ export default function OrderSummary() {
       <div className="mt-6 text-xl font-bold">Total Paid: ${total.toFixed(2)}</div>
       <p className="mt-6 text-green-600">✅ Order Date: {latestOrder.date.toLocaleString()}</p>
 
-      <div className="flex gap-4 mt-6">
+    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center mt-4">
         <button
           onClick={() => navigate("/products")}
           className="rounded-lg bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
         >
           Continue Shopping
         </button>
+               <button
+          onClick={() => navigate("/cart")}
+          className="rounded-lg bg-purple-800 px-4 py-2 text-white hover:bg-purple-700"
+        >
+          Back to Cart
+        </button>
+
+          <Link 
+            to="/checkout" 
+            className="bg-green-600 text-white px-4 py-2 rounded-lg text-center"
+          >
+            Proceed to Checkout
+        </Link>
         <button
           onClick={() => navigate("/order-history")}
           className="rounded-lg bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"

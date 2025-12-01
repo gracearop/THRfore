@@ -6,10 +6,10 @@ export function BeforeFooter() {
   return (
     <div className="flex max-w-4xl mx-auto m-7">
       {/* Image Div */}
-      <div
-        className="w-4/5 bg-cover bg-center"
-        style={{ backgroundImage: "url('/assets/side-picture.JPG')" }}
-      ></div>
+        <div
+          className="w-4/5 bg-cover bg-center"
+          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/assets/side-picture.JPG)` }}
+        ></div>
 
       {/* Card Div */}
       <div className="w-3/4 flex items-center justify-center">

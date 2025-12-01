@@ -8,7 +8,7 @@ export default function ProductHeading() {
     // <div className=" flex justify-center items-center"> 
     //     <Heading> You can shop too!
     //     </Heading> 
-    //                   <ImageCard src="/assets/shopping-girl.JPG"
+    //                   <ImageCard src={process.env.PUBLIC_URL + "/assets/shopping-girl.JPG"}
     //           className="w-3/4 m-5"/>     
     // </div> 
         <div className="flex flex-col justify-center items-center text-center p-6">
@@ -20,7 +20,7 @@ export default function ProductHeading() {
       </p>
          <Link to="/products">
             <img
-                src="/assets/shopping-girl.JPG"
+                src={process.env.PUBLIC_URL + "/assets/shopping-girl.JPG"}
                 alt="Shopping girl"
                 className="m-5 rounded-lg shadow-lg"
             />

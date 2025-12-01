@@ -1,10 +1,16 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Checkout() {
+  // Hooks first
+  const { user } = useContext(UserContext);
   const { cart, confirmOrder } = useContext(CartContext);
   const navigate = useNavigate();
+
+  // Conditional rendering after hooks
+  if (!user) return <Navigate to="/login" replace />;
 
   const total = cart.reduce((sum, item) => {
     const priceNumber = parseFloat(item.price.replace("$", ""));
@@ -38,9 +44,7 @@ export default function Checkout() {
 
           <div className="mt-6 text-xl font-bold">
             Total: ${total.toFixed(2)}
-          </div>
-
-          <div className="mt-6 flex gap-4 flex-wrap">
+          </div>        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center mt-4">
             <button
               onClick={() => navigate("/cart")}
               className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
@@ -55,8 +59,10 @@ export default function Checkout() {
               Confirm Order
             </button>
           </div>
+  
         </div>
       )}
+
     </section>
   );
 }

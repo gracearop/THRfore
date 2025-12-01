@@ -25,7 +25,7 @@ export default function FooterMenu() {
           <div>
             <FooterBrand
               href="/"
-              src="/assets/thrift.JPG"
+              src={process.env.PUBLIC_URL + "/assets/thrift.JPG"}
               alt="Thrift"
               name="THRfore sTORES"
             />

@@ -1,19 +1,22 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
+import { UserContext } from "./UserContext";
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-    const updateQuantity = (productId, amount) => {
+  const { user } = useContext(UserContext);
+
+  const updateQuantity = (productId, amount) => {
     setCart((prev) =>
-    prev
-      .map((item) =>
-        item.id === productId
-          ? { ...item, quantity: item.quantity + amount }
-          : item
+      prev
+        .map((item) =>
+          item.id === productId
+            ? { ...item, quantity: item.quantity + amount }
+            : item
         )
-      .filter((item) => item.quantity > 0) // Remove if quantity drops to 0
-        );
-    };
+        .filter((item) => item.quantity > 0)
+    );
+  };
 
   // Load cart from localStorage or start empty
   const [cart, setCart] = useState(() => {
@@ -39,6 +42,11 @@ export function CartProvider({ children }) {
 
   // --- Cart Functions ---
   const addToCart = (product) => {
+    if (!user) {
+      alert("Please login to add items to cart.");
+      return;
+    }
+
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
@@ -61,7 +69,7 @@ export function CartProvider({ children }) {
             ? { ...item, quantity: item.quantity - 1 }
             : item
         )
-        .filter((item) => item.quantity > 0) // remove if quantity hits 0
+        .filter((item) => item.quantity > 0)
     );
   };
 
@@ -75,15 +83,21 @@ export function CartProvider({ children }) {
   };
 
   const confirmOrder = () => {
+    if (!user) {
+      alert("You must login to confirm an order.");
+      return;
+    }
+
     const newOrder = {
       id: generateOrderId(),
+      userEmail: user.email, // associate order with user
       items: cart,
       total: cart.reduce(
         (sum, product) =>
           sum + product.quantity * parseFloat(product.price.replace("$", "")),
         0
       ),
-      date: new Date(),
+      date: new Date().toISOString(), // store as ISO string
     };
 
     setOrders((prev) => [...prev, newOrder]); // Save order
@@ -92,19 +106,18 @@ export function CartProvider({ children }) {
   };
 
   return (
-        <CartContext.Provider
-        value={{
-            cart,
-            addToCart,
-            removeFromCart,
-            clearCart,
-            confirmOrder,
-            orders,
-            updateQuantity, // ✅ new function
-        }}
-        >
-        {children}
-        </CartContext.Provider>
-
-    );
-    }
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        confirmOrder,
+        orders,
+        updateQuantity,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+}

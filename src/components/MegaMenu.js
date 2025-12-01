@@ -19,7 +19,7 @@ function Menu() {
   return (
     <MegaMenu>
       <NavbarBrand as={Link} to="/" className="flex items-center space-x-2">
-        <img alt="" src="/assets/thrift.JPG" className="mr-3 h-6 sm:h-9" />
+        <img alt="" src={process.env.PUBLIC_URL + "/assets/thrift.JPG"} className="mr-3 h-6 sm:h-9" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           THRfore sTORES
         </span>
@@ -112,11 +112,12 @@ function Menu() {
               </li>
             </ul>
 
-            <Link
-              to="/products"
-              className="rounded-lg bg-gray-500 bg-cover bg-local bg-center bg-no-repeat p-8 text-left bg-blend-multiply hover:bg-blend-soft-light dark:hover:bg-blend-darken"
-              style={{ backgroundImage: "url('/assets/side-picture.JPG')" }}
-            >
+              <Link
+                to="/products"
+                className="rounded-lg bg-gray-500 bg-cover bg-local bg-center bg-no-repeat p-8 text-left bg-blend-multiply hover:bg-blend-soft-light dark:hover:bg-blend-darken"
+                style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/assets/side-picture.JPG)` }}
+              >
+
               <p className="mb-5 max-w-xl font-extrabold leading-tight tracking-tight text-white">
                 Start Shopping Now! With us at THRfore sTORES
               </p>
